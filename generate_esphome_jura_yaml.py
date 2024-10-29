@@ -13,7 +13,7 @@
 import sys
 from bitarray import bitarray
 
-arg1 = sys.argv[1]
+args = sys.argv[1:]
 
 def tojura(c):
 
@@ -59,12 +59,15 @@ def tojura(c):
 
     return [z0,z1,z2,z3]
 
-def encoder():
+def encoder(arg1):
     string = arg1 + "\r\n"
     bytes = []
     for c in string:
         bytes.append(tojura(c))
 
 print()
-encoder()
+for arg in args:
+    print(f"### {arg} start ###")
+    encoder(arg)
+    print(f"### {arg} end ###")
 print()
