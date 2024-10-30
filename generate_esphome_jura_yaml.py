@@ -66,8 +66,9 @@ def encoder(arg1):
         bytes.append(tojura(c))
 
 print()
-for arg in args:
+for i, arg in enumerate(args):
     print(f"### {arg} start ###")
     encoder(arg)
-    print(f"### {arg} end ###")
+    if i < len(args) - 1:
+        print("      - delay: 8ms")
 print()
