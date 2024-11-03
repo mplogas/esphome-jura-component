@@ -15,6 +15,9 @@ from bitarray import bitarray
 
 args = sys.argv[1:]
 
+# Initialize the test mode variable
+test_mode = False
+
 def tojura(c):
 
     cc = bytes(c, 'utf-8')
@@ -67,8 +70,22 @@ def encoder(arg1):
 
 print()
 for i, arg in enumerate(args):
-    print(f"### {arg} start ###")
-    encoder(arg)
-    if i < len(args) - 1:
-        print("      - delay: 8ms")
+    if i == 0 and arg == "test":
+        print("First argument is 'test'")
+        test_mode = True  # Set test mode to True
+        continue
+
+    if test_mode:
+        print("  - platform: template")
+        print(f"    name: '{arg}'")
+        print("    icon: \"mdi:cup-water\"")
+        print(f"    id: jura_{arg.lower().replace(' ', '_').replace(':','_')}_switch")
+        print("    optimistic: true")
+        print("    turn_on_action:")
+        encoder(arg)
+    else:
+        print(f"### {arg} start ###")
+        encoder(arg)
+        if i < len(args) - 1:
+            print("    - delay: 8ms")
 print()
